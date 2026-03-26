@@ -1,0 +1,7 @@
+.accordion_item.category-headline-exereports{
+    background: #F5F5F5 url('[[pix:local_exeter_reportsdash_reports|exeter_reports]]') no-repeat 2% .8em;
+}
+
+.flexible.table .class_latethreshold {
+    display: none;
+}
