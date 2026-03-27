@@ -341,7 +341,7 @@ class mmu_rise_student_points_report extends \block_reportsdash\report {
         }
 
 
-            \block_reportsdash::wrap($rowdata->pointsvalue,"$CFG->wwwroot/blocks//reportsdash/report.php?rptname=\\local_mmu_rise_reportsdash_reports\\reports\\mmu_rise_student_points_breakdown_report&ruleid=$rowdata->ruleid&userid=$rowdata->userid");
+            \block_reportsdash::wrap($rowdata->pointsvalue,"$CFG->wwwroot/blocks//reportsdash/report.php?rptname=\\local_mmu_rise_reportsdash_reports\\reports\\mmu_rise_student_points_breakdown_report&ruleid=$rowdata->ruleid&userid=$rowdata->userid&rulelevelid=$rowdata->rulelevelid");
 
 
         return $rowdata;

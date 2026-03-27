@@ -52,6 +52,7 @@ class mmu_rise_student_points_breakdown_report extends \block_reportsdash\report
 
         $this->params['ruleid']         =       required_param('ruleid',PARAM_INT);
         $this->params['userid']         =       required_param('userid',PARAM_INT);
+        $this->params['rulelevelid']         =       required_param('rulelevelid',PARAM_INT);
 
 
         if(!empty($this->filters->firstnamefilter)) {
@@ -224,7 +225,7 @@ class mmu_rise_student_points_breakdown_report extends \block_reportsdash\report
                             mdl_tag t2 ON (theme.tagid = t2.id) LEFT JOIN
                             mdl_course_modules_completion cmc ON (up.activitycompletionid =  cmc.id) LEFT JOIN
                             mdl_course_completions cc ON (up.coursecompletionid = cc.id)
-                            WHERE up.ruleid = :ruleid AND up.userid = :userid ;
+                            WHERE up.ruleid = :ruleid AND up.userid = :userid AND up.rulelevelid = :rulelevelid;
                 {$timecreatedsql}
                 {$order_by} ";
 
