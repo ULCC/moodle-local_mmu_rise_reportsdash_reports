@@ -363,7 +363,7 @@ class mmu_rise_student_points_report extends \block_reportsdash\report {
     }
 
     static function get_report_category() {
-        return 'exereports';
+        return 'mmurisereports';
     }
 
     function noSorting($columns) {

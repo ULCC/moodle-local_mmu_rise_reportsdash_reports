@@ -1,7 +1,7 @@
 <?php
 
-$string['exereports']               =   'MMU Rise Reports';
-$string['exereports_desc']          =   'This collection contains reports specific to MMU Rise';
+$string['mmurisereports']               =   'MMU Rise Reports';
+$string['mmurisereports_desc']          =   'This collection contains reports specific to MMU Rise';
 
 $string['mmu_rise_engagement_report']             =   'MMU Rise Engagement report';
 $string['mmu_rise_engagement_report_descr']       =   'Displays engagement data based on course';
