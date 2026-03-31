@@ -400,7 +400,7 @@ class mmu_rise_student_points_breakdown_report extends \block_reportsdash\report
     }
 
     static function check_dependency($dependencies) {
-        $dependencies = array('mod_coursework');
+        $dependencies = array('local_mmu_rise_points');
 
         return parent::check_dependency($dependencies);
     }

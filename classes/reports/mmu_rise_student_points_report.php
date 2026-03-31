@@ -190,7 +190,8 @@ class mmu_rise_student_points_report extends \block_reportsdash\report {
 			                    r.name AS 'rulename', 
                                 t1.name AS 'level',
                                 t2.name AS 'theme',
-                                r.cohortid AS 'Cohort'
+                                r.cohortid AS 'Cohort',
+                                r.name as 'rule'
                                 
                 FROM		mdl_local_mmu_rise  up 	JOIN
 		                    mdl_local_mmu_rise_rule_level	rl ON	(up.rulelevelid	=	rl.id  ) JOIN
@@ -226,6 +227,7 @@ class mmu_rise_student_points_report extends \block_reportsdash\report {
         $col[]  =   'pointsvalue';;
         $col[]  =   'firstname';
         $col[]  =   'lastname';
+        $col[]  =   'rule';
         $col[]  =   'theme';
         $col[]  =   'level';
         $col[]  =   'badges';
@@ -255,7 +257,7 @@ class mmu_rise_student_points_report extends \block_reportsdash\report {
         }
 
 
-        $this->noSorting(array());
+        $this->noSorting(array('badges'));
 
         $this->count++;
 
@@ -378,7 +380,7 @@ class mmu_rise_student_points_report extends \block_reportsdash\report {
     }
 
     static function check_dependency($dependencies) {
-        $dependencies = array('mod_coursework');
+        $dependencies = array('local_mmu_rise_points');
 
         return parent::check_dependency($dependencies);
     }
