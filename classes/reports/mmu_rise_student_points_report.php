@@ -191,7 +191,8 @@ class mmu_rise_student_points_report extends \block_reportsdash\report {
                                 t1.name AS 'level',
                                 t2.name AS 'theme',
                                 r.cohortid AS 'Cohort',
-                                r.name as 'rule'
+                                r.name as 'rule',
+                                u.idnumber 
                                 
                 FROM		mdl_local_mmu_rise  up 	JOIN
 		                    mdl_local_mmu_rise_rule_level	rl ON	(up.rulelevelid	=	rl.id  ) JOIN
@@ -225,6 +226,7 @@ class mmu_rise_student_points_report extends \block_reportsdash\report {
 
 
         $col[]  =   'pointsvalue';;
+        $col[]  =   'idnumber';
         $col[]  =   'firstname';
         $col[]  =   'lastname';
         $col[]  =   'rule';

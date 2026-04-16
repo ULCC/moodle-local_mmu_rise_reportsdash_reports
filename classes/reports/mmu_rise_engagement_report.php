@@ -149,7 +149,8 @@ class mmu_rise_engagement_report extends \block_reportsdash\report {
         }
 
 
-        $sql = "SELECT  c.fullname AS course_name,
+        $sql = "SELECT  c.id as course_id,
+                        c.fullname AS course_name,
                         COUNT(DISTINCT ue.userid) AS student_count,
                         IFNULL(COUNT(DISTINCT ccomp.id),0) course_completions,
                         IFNULL(COUNT(DISTINCT cmc.id),0) course_module_completions
@@ -230,6 +231,14 @@ class mmu_rise_engagement_report extends \block_reportsdash\report {
     protected function preprocessShow($rowdata) {
         global $CFG;
 
+        if ($rowdata->course_completions > 0)   {
+            $rowdata->course_completions    =   \html_writer::link('/report/completion/index.php?course='.$rowdata->course_id,$rowdata->course_completions );
+        }
+
+        if ($rowdata->course_module_completions > 0)   {
+            $rowdata->course_module_completions    =   \html_writer::link('/report/progress/index.php?course='.$rowdata->course_id,$rowdata->course_module_completions );
+        }
+///report/completion/index.php?course=131
         $colour = "";
        /* $rowdata->catname =  '<div title="'.$rowdata->catpathname.'">'.$rowdata->catname.'</div>';
 
@@ -296,72 +305,6 @@ class mmu_rise_engagement_report extends \block_reportsdash\report {
     protected function preprocessExport($rowdata) {
         global $CFG;
 
-        $rowdata->latethreshold = '';
-        // swap category name with the full path
-        $rowdata->catname = $rowdata->catpathname;
-        if(($rowdata->submissionstatus == 'Not Submitted' && time() > $rowdata->duedate)) { //After deadline and not submitted
-            $colour = '#A40C0A';
-            $rowdata->latethreshold = 'Not submitted';
-        }
-        if (!empty($rowdata->latetime) && $rowdata->latetime!= 'N/A')    {
-
-            if ($rowdata->latetime > 60*60*24){ // More than 24hours late
-                $colour = '#A40C0A';
-                $rowdata->latethreshold = 'Over 24hrs late';
-            }else if ($rowdata->latetime> 60*60 && $rowdata->latetime< 60*60*24-1){ // 1 hr to up to 23 hrs, 59 mins 59 secs late
-                $colour = '#7215D8';
-                $rowdata->latethreshold = '1hr-24hrs late';
-            } else if($rowdata->latetime < 60*60-1){ // Up to 59 mins, 59 secs late
-                $colour = "#26762C";
-                $rowdata->latethreshold = 'Up to 1hr late';
-            }
-
-
-            $days = floor($rowdata->latetime / 86400);
-            $hours = floor($rowdata->latetime / 3600) % 24;
-            $minutes = floor($rowdata->latetime / 60) % 60;
-            $seconds = $rowdata->latetime % 60;
-
-            $rowdata->latetime =    "{$days} days $hours hours $minutes minutes $seconds seconds";
-        }
-
-        if (!empty($rowdata->accessrestrictions)) {
-            $accessrestrictions = get_course_module_availability($rowdata->accessrestrictions);
-            $rowdata->accessrestrictions = strip_tags($accessrestrictions);
-            if ($_REQUEST['download'] == 'csv' || $_REQUEST['download'] == 'xlsx') {
-                $rowdata->accessrestrictions = trim(preg_replace('/\s+/', ' ', $rowdata->accessrestrictions));;
-            }
-        }
-
-        if (!empty($rowdata->timesubmitted)) {
-            $rowdata->timesubmitted = date('d/m/Y G:i', $rowdata->timesubmitted);
-        }
-
-        if (!empty($rowdata->duedate)) {
-            $rowdata->duedate = date('d/m/Y G:i', $rowdata->duedate);
-        }
-
-        if (!empty($rowdata->extensiondate)) {
-            $rowdata->extensiondate = date('d/m/Y G:i', $rowdata->extensiondate);
-        }
-
-        if (!empty($rowdata->mitigationtype) && $rowdata->mitigationtype != 'extension') {
-            $rowdata->mitigationtype = $rowdata->mitigationtype ." exemption";
-        }
-
-        if($rowdata->selfcert != ''){
-            $rowdata->selfcert = $rowdata->selfcert == 1 ? 'Yes' : 'No';
-        }
-
-        if($rowdata->plagiarismstatus != ''){
-            $rowdata->plagiarismstatus = get_string('plagiarism_'.$rowdata->plagiarismstatus, 'mod_coursework');
-        }
-        $downloadtype = required_param('download', PARAM_RAW);
-        if ($downloadtype == 'html') {
-            foreach ($rowdata as $n => $d) {
-                $rowdata->$n = $this->divspan($d, $colour);
-            }
-        }
 
 
         return $rowdata;
