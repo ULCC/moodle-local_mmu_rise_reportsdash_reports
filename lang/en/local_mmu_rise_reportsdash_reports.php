@@ -57,6 +57,7 @@ $string['pointsvalue']          =   'Points achieved';
 
 //R
 $string['reportssettings']          =   'MMU Rise Reports settings';
+$string['rule']          =   'Rule';
 
 //S
 $string['student_count']            =   'Enrolments';

@@ -23,7 +23,7 @@ defined('MOODLE_INTERNAL') || die;
 
 global $CFG;
 
-$plugin->version        =   2025033100; // The (date) version of this plugin
+$plugin->version        =   2026042900; // The (date) version of this plugin
 $plugin->requires       =   2022041900;  // Requires this Moodle version - at least 4.0
 $plugin->component      =   'local_mmu_rise_reportsdash_reports';  // Full name of the plugin (used for diagnostics)
 $plugin->dependencies   =   array(
